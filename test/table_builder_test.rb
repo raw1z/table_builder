@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), 'test_helper.rb')
 class TableBuilderTest < ActionView::TestCase
   include ActionView::Helpers::TextHelper
   include ActionView::Helpers::TagHelper
-  include TableHelper
+  include TableBuilder::TableHelper
   attr_accessor :output_buffer  
   
   def setup
