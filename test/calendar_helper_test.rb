@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), 'test_helper.rb')
 class CalendarHelperTest < ActionView::TestCase
   include ActionView::Helpers::TextHelper
   include ActionView::Helpers::TagHelper
-  include CalendarHelper
+  include TableBuilder::CalendarHelper
   attr_accessor :output_buffer
 
   def setup
@@ -143,7 +143,7 @@ class CalendarHelperTest < ActionView::TestCase
   end
 
   def test_objects_for_days_with_events
-    calendar = CalendarHelper::Calendar.new(:year=> 2008, :month => 12)
+    calendar = TableBuilder::CalendarHelper::Calendar.new(:year=> 2008, :month => 12)
     objects_for_days = {}
     Date.civil(2008, 11, 30).upto(Date.civil(2009, 1, 3)){|day| objects_for_days[day.strftime("%Y-%m-%d")] = [day, []]}
     objects_for_days['2008-12-26'][1] = @events    
@@ -151,38 +151,38 @@ class CalendarHelperTest < ActionView::TestCase
   end
 
   def test_objects_for_days
-    calendar = CalendarHelper::Calendar.new(:year=> 2008, :month => 12)
+    calendar = TableBuilder::CalendarHelper::Calendar.new(:year=> 2008, :month => 12)
     objects_for_days = {}
     Date.civil(2008, 11, 30).upto(Date.civil(2009, 1, 3)){|day| objects_for_days[day.strftime("%Y-%m-%d")] = [day, []]}
     assert_equal objects_for_days, calendar.objects_for_days([], :date)
   end
 
   def test_days
-    calendar = CalendarHelper::Calendar.new(:year=> 2008, :month => 12)
+    calendar = TableBuilder::CalendarHelper::Calendar.new(:year=> 2008, :month => 12)
     days = []
     Date.civil(2008, 11, 30).upto(Date.civil(2009, 1, 3)){|day| days << day}
     assert_equal days, calendar.days
   end
 
   def test_days_with_first_day_of_week_set
-    calendar = CalendarHelper::Calendar.new(:year=> 2008, :month => 12, :first_day_of_week => 1)
+    calendar = TableBuilder::CalendarHelper::Calendar.new(:year=> 2008, :month => 12, :first_day_of_week => 1)
     days = []
     Date.civil(2008, 12, 1).upto(Date.civil(2009, 1, 4)){|day| days << day}
     assert_equal days, calendar.days
   end
 
   def test_first_day
-    calendar = CalendarHelper::Calendar.new(:year=> 2008, :month => 12)
+    calendar = TableBuilder::CalendarHelper::Calendar.new(:year=> 2008, :month => 12)
     assert_equal Date.civil(2008, 11, 30), calendar.first_day
   end
   
   def test_last_day
-    calendar = CalendarHelper::Calendar.new(:year=> 2008, :month => 12)
+    calendar = TableBuilder::CalendarHelper::Calendar.new(:year=> 2008, :month => 12)
     assert_equal Date.civil(2009, 1, 3), calendar.last_day
   end
   
   def test_last_day_with_first_day_of_week_set
-    calendar = CalendarHelper::Calendar.new(:year=> 2008, :month => 12, :first_day_of_week => 1)
+    calendar = TableBuilder::CalendarHelper::Calendar.new(:year=> 2008, :month => 12, :first_day_of_week => 1)
     assert_equal Date.civil(2009, 1, 4), calendar.last_day
   end  
 end
